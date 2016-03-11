@@ -2,7 +2,7 @@
 ;;
 ;; Email mafagafogigante@gmail.com if you have any doubts or suggestions.
 ;;
-;; Made public under the BSD 3-Clause license.
+;; Made public under the BSD 2-Clause license.
 
 #lang racket
 
