@@ -50,32 +50,32 @@
 ;; divides : (Positive Integer) (Nonnegative Integer) -> Boolean
 ;; Evaluates whether or not a number divides another.
 ;; Examples:
-;;   (divides 1 0) -> true
-;;   (divides 1 1) -> true
-;;   (divides 2 0) -> true
-;;   (divides 2 1) -> false
-;;   (divides 2 2) -> true
-;;   (divides 2 3) -> false
+;;   (divides 1 0) -> #t
+;;   (divides 1 1) -> #t
+;;   (divides 2 0) -> #t
+;;   (divides 2 1) -> #f
+;;   (divides 2 2) -> #t
+;;   (divides 2 3) -> #f
 (define (divides divisor number)
   (zero? (modulo number divisor)))
 
-(check-expect (divides 1 0) true)
-(check-expect (divides 1 1) true)
-(check-expect (divides 1 43) true)
-(check-expect (divides 1 829) true)
-(check-expect (divides 1 7829) true)
+(check-expect (divides 1 0) #t)
+(check-expect (divides 1 1) #t)
+(check-expect (divides 1 43) #t)
+(check-expect (divides 1 829) #t)
+(check-expect (divides 1 7829) #t)
 
-(check-expect (divides 2 0) true)
-(check-expect (divides 2 1) false)
-(check-expect (divides 2 2) true)
-(check-expect (divides 2 3) false)
-(check-expect (divides 2 4) true)
+(check-expect (divides 2 0) #t)
+(check-expect (divides 2 1) #f)
+(check-expect (divides 2 2) #t)
+(check-expect (divides 2 3) #f)
+(check-expect (divides 2 4) #t)
 
-(check-expect (divides 3 0) true)
-(check-expect (divides 3 1) false)
-(check-expect (divides 3 2) false)
-(check-expect (divides 3 3) true)
-(check-expect (divides 3 4) false)
+(check-expect (divides 3 0) #t)
+(check-expect (divides 3 1) #f)
+(check-expect (divides 3 2) #f)
+(check-expect (divides 3 3) #t)
+(check-expect (divides 3 4) #f)
 
 ;; A point in a bi-dimensional plane.
 (struct 2DPoint (x y))
