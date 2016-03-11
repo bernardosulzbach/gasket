@@ -13,9 +13,7 @@
 (define (apply function value times)
   (if (< times 1)
       value
-      (apply function (function value) (sub1 times))
-      )
-  )
+      (apply function (function value) (sub1 times))))
 
 ;; Returns the initial Fibonacci matrix [[1 1], [1, 0]]
 (define (fibonacci-initial-matrix)
