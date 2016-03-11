@@ -10,10 +10,10 @@
 (require test-engine/racket-tests)
 
 ;; Applies a function to a value the specified number of times
-(define (apply function value times)
+(define (repeat function value times)
   (if (< times 1)
       value
-      (apply function (function value) (sub1 times))))
+      (repeat function (function value) (sub1 times))))
 
 ;; Returns the initial Fibonacci matrix [[1 1], [1, 0]]
 (define (fibonacci-initial-matrix)
@@ -24,7 +24,7 @@
 ;;
 (define (nth-fibonacci n)
   (define (multiply-by-fibonacci-initial-matrix matrix) (matrix* matrix (fibonacci-initial-matrix)))
-  (matrix-ref (apply multiply-by-fibonacci-initial-matrix (fibonacci-initial-matrix) n) 1 1))
+  (matrix-ref (repeat multiply-by-fibonacci-initial-matrix (fibonacci-initial-matrix) n) 1 1))
 
 (check-expect (nth-fibonacci 0) 0)
 (check-expect (nth-fibonacci 1) 1)
