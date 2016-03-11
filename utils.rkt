@@ -9,7 +9,8 @@
 (require math)
 (require test-engine/racket-tests)
 
-;; Applies a function to a value the specified number of times
+;; repeat : Function Value Number -> Value
+;; Applies a function to a value the specified number of times.
 (define (repeat function value times)
   (if (< times 1)
       value
