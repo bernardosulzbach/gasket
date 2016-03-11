@@ -77,4 +77,24 @@
 (check-expect (divides 3 3) true)
 (check-expect (divides 3 4) false)
 
+(struct 2DPoint (x y))
+
+(define (distance point-a point-b)
+  (sqrt (+ (sqr (- (2DPoint-x point-a) (2DPoint-x point-b))) (- (2DPoint-y point-a) (2DPoint-y point-b)))))
+
+;; within-circle : Number Number Number Number Number -> Boolean
+;; Evaluates whether or not a a point is inside a circle. The two first numbers represent the X and Y coordinates of the circle.
+;; The third number is the circle radius. Finally, the last two numbers represent the X and Y coordinates of point you are testing.
+(define (within-circle center radius point)
+  (< (distance center point) radius))
+
+(check-expect (within-circle (2DPoint 0 0) 2 (2DPoint 0 0)) #t)
+(check-expect (within-circle (2DPoint 0 0) 2 (2DPoint 1 1)) #t)
+(check-expect (within-circle (2DPoint 0 0) 2 (2DPoint 2 2)) #f)
+(check-expect (within-circle (2DPoint 0 0) 2 (2DPoint -1 -1)) #t)
+
+(check-expect (within-circle (2DPoint 2 2) 1 (2DPoint 2 2)) #t)
+(check-expect (within-circle (2DPoint 2 2) 1 (2DPoint 2 3)) #t)
+(check-expect (within-circle (2DPoint 2 2) 1 (2DPoint 3 3)) #f)
+
 (test)
