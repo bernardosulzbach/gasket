@@ -83,10 +83,12 @@
 ;; distance : 2DPoint 2DPoint -> Number
 ;; Evaluates the distance between two points.
 (define (distance point-a point-b)
+  ;; Takes the square root of the sum of the square of the differences.
   (sqrt
-   (+
-    (sqr (- (2DPoint-x point-a) (2DPoint-x point-b)))
-    (sqr (- (2DPoint-y point-a) (2DPoint-y point-b))))))
+   (apply +
+    (map
+     (lambda (f) (sqr (apply - (map f (list point-a point-b)))))
+     (list 2DPoint-x 2DPoint-y)))))
 
 ;; within-circle : Number Number Number Number Number -> Boolean
 ;; Evaluates whether or not a a point is in a circle. The two first numbers represent the X and Y coordinates of the circle.
