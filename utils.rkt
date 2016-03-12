@@ -106,4 +106,10 @@
 (check-expect (within-circle (2DPoint 2 2) 1 (2DPoint 2 3)) #t)
 (check-expect (within-circle (2DPoint 2 2) 1 (2DPoint 3 3)) #f)
 
+;; Function List -> Integer
+;; Returns the number of milliseconds the function takes to finish with the provided list of arguments.
+(define (wall-time-apply procedure arguments)
+  (let-values ([(timings cpu wall gc) (time-apply procedure arguments)])
+    cpu))
+
 (test)
