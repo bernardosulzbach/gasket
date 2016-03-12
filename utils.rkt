@@ -25,7 +25,7 @@
 ;;
 (define (nth-fibonacci n)
   (define (multiply-by-fibonacci-initial-matrix matrix) (matrix* matrix (fibonacci-initial-matrix)))
-  (matrix-ref (repeat multiply-by-fibonacci-initial-matrix (fibonacci-initial-matrix) n) 1 1))
+  (matrix-ref (matrix-expt (fibonacci-initial-matrix) n) 0 1))
 
 (check-expect (nth-fibonacci 0) 0)
 (check-expect (nth-fibonacci 1) 1)
