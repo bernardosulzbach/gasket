@@ -109,7 +109,6 @@
 ;; Function List -> Integer
 ;; Returns the number of milliseconds the function takes to finish with the provided list of arguments.
 (define (wall-time-apply procedure arguments)
-  (let-values ([(timings cpu wall gc) (time-apply procedure arguments)])
-    cpu))
+  (let-values ([(timings cpu wall gc) (time-apply procedure arguments)]) wall))
 
 (test)
