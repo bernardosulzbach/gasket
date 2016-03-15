@@ -25,18 +25,35 @@
   (if (= n 0) 1 (+ (sum-fast-approximate-pi (sub1 n)) (fast-approximation-step n))))
 
 (define (fast-approximation-step n)
-  (* (/ (double-factorial (* 2 n)) (double-factorial (+ (* 2 n) 1))) (/ 1 (expt 2 n))))
+  (* (/ (!! (* 2 n)) (!! (+ (* 2 n) 1))) (/ 1 (expt 2 n))))
 
-;; double-factorial : Integer -> Integer
-;; The double factorial (!!) of n = n(n - 2)!! if n > 1 else 1
-(define (double-factorial n)
-  (if (or (= 0 n) (= 1 n)) 1 (* n (double-factorial (- n 2)))))
+;; ! : Integer -> Integer
+;; The factorial of n:
+;;  1             if n = 0
+;;  n * (n - 1)!  otherwise
+(define (! n)
+  (if (= 0 n) 1 (* n (! (sub1 n)))))
 
-(check-expect (double-factorial 0) 1)
-(check-expect (double-factorial 1) 1)
-(check-expect (double-factorial 2) 2)
-(check-expect (double-factorial 3) 3)
-(check-expect (double-factorial 4) 8)
+(check-expect (! 0) 1)
+(check-expect (! 1) 1)
+(check-expect (! 2) 2)
+(check-expect (! 3) 6)
+(check-expect (! 4) 24)
+(check-expect (! 5) 120)
+(check-expect (! 6) 720)
+
+;; !! : Integer -> Integer
+;; The double factorial of n:
+;;  1              if n = 0 or n = 1
+;;  n * (n - 2)!!  otherwise
+(define (!! n)
+  (if (or (= 0 n) (= 1 n)) 1 (* n (!! (- n 2)))))
+
+(check-expect (!! 0) 1)
+(check-expect (!! 1) 1)
+(check-expect (!! 2) 2)
+(check-expect (!! 3) 3)
+(check-expect (!! 4) 8)
 
 ;; fast-approximate-π : PositiveInteger -> Number
 ;; Fastly approximates π.
