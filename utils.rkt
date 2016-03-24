@@ -77,34 +77,48 @@
 (check-expect (divides 3 3) #t)
 (check-expect (divides 3 4) #f)
 
-;; A point in a bi-dimensional plane.
-(struct 2DPoint (x y))
+;; A point is a member of Point which is the set of the points in the Euclidean Space that have three
+;; Numbers x, y and z.
+;;
+;; (make-point x y z) makes a point with the three provided coordinates.
+(struct point (x y z))
 
-;; A circle.
+(check-expect (point-x (point 1 0 0)) 1)
+(check-expect (point-y (point 1 0 0)) 0)
+(check-expect (point-z (point 1 0 0)) 0)
+(check-expect (point-x (point 1 2 0)) 1)
+(check-expect (point-y (point 1 2 0)) 2)
+(check-expect (point-z (point 1 2 0)) 0)
+(check-expect (point-x (point 1 2 3)) 1)
+(check-expect (point-y (point 1 2 3)) 2)
+(check-expect (point-z (point 1 2 3)) 3)
+
+;; A circle is a structure made up of a Point for its center and a Number that represents its radius.
 (struct circle (point radius))
 
-;; distance : 2DPoint 2DPoint -> Number
+;; distance : Point2D Point2D -> Number
 ;; Evaluates the distance between two points.
 (define (distance point-a point-b)
   ;; Takes the square root of the sum of the square of the differences.
   (sqrt (+
-         (sqr (- (2DPoint-x point-a) (2DPoint-x point-b)))
-         (sqr (- (2DPoint-y point-a) (2DPoint-y point-b))))))
+         (sqr (- (point-x point-a) (point-x point-b)))
+         (sqr (- (point-y point-a) (point-y point-b)))
+         (sqr (- (point-z point-a) (point-z point-b))))))
 
-;; within-circle : 2DPoint Number 2DPoint -> Boolean
-;; Evaluates whether or not a a point is in a circle. The first 2DPoint represents the center of the circle, the middle number indicates the circle radius and the
+;; within-circle : Point Number Point -> Boolean
+;; Evaluates whether or not a a point is in a circle. The first Point represents the center of the circle, the middle number indicates the circle radius and the
 ;; The third number is the circle radius. Finally, the last two numbers represent the X and Y coordinates of point you are testing.
 (define (within-circle center radius point)
   (<= (distance center point) radius))
 
-(check-expect (within-circle (2DPoint 0 0) 2 (2DPoint 0 0)) #t)
-(check-expect (within-circle (2DPoint 0 0) 2 (2DPoint 1 1)) #t)
-(check-expect (within-circle (2DPoint 0 0) 2 (2DPoint 2 2)) #f)
-(check-expect (within-circle (2DPoint 0 0) 2 (2DPoint -1 -1)) #t)
+(check-expect (within-circle (point 0 0 0) 2 (point 0 0 0)) #t)
+(check-expect (within-circle (point 0 0 0) 2 (point 1 1 0)) #t)
+(check-expect (within-circle (point 0 0 0) 2 (point 2 2 0)) #f)
+(check-expect (within-circle (point 0 0 0) 2 (point -1 -1 0)) #t)
 
-(check-expect (within-circle (2DPoint 2 2) 1 (2DPoint 2 2)) #t)
-(check-expect (within-circle (2DPoint 2 2) 1 (2DPoint 2 3)) #t)
-(check-expect (within-circle (2DPoint 2 2) 1 (2DPoint 3 3)) #f)
+(check-expect (within-circle (point 2 2 0) 1 (point 2 2 0)) #t)
+(check-expect (within-circle (point 2 2 0) 1 (point 2 3 0)) #t)
+(check-expect (within-circle (point 2 2 0) 1 (point 3 3 0)) #f)
 
 ;; wall-time-apply : Function List -> Integer
 ;; Returns the number of milliseconds the function takes to finish with the provided list of arguments.
