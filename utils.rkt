@@ -111,4 +111,21 @@
 (define (wall-time-apply procedure arguments)
   (let-values ([(timings cpu wall gc) (time-apply procedure arguments)]) wall))
 
+;; Σ : Function Integer Integer -> Any
+;; Sums the results of the given function when mapped over all integers from the first passed integer up to the second, inclusive.
+;; If the second integer is smaller than the first, returns 0, the result of an empty sum by definition.
+(define (Σ function lower upper)
+  (cond
+    [(not (integer? lower)) (raise-argument-error 'Σ "integer?" lower)]
+    [(not (integer? upper)) (raise-argument-error 'Σ "integer?" upper)]
+    [else (for/sum ([x (in-range lower (add1 upper))]) (function x))]))
+
+(check-expect (Σ (λ (x) (sqr x)) -1 -2) 0)
+(check-expect (Σ (λ (x) (sqr x)) -1 -1) 1)
+(check-expect (Σ (λ (x) (sqr x)) -1 0) 1)
+(check-expect (Σ (λ (x) (sqr x)) 0 0) 0)
+(check-expect (Σ (λ (x) (sqr x)) 0 1) 1)
+(check-expect (Σ (λ (x) (sqr x)) 0 2) 5)
+(check-expect (Σ (λ (x) (sqr x)) 0 3) 14)
+
 (test)
