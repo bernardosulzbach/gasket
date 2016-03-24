@@ -142,4 +142,29 @@
 (check-expect (Σ (λ (x) (sqr x)) 0 2) 5)
 (check-expect (Σ (λ (x) (sqr x)) 0 3) 14)
 
+;; ∫ : Function Number Number PositiveInteger -> Number
+;; Numerically integrates the provided function over the provided range.
+;; The PositiveInteger is the number of steps used. In general, the bigger the number of steps, the
+;; better the approximation.
+(define (∫ function lower upper steps)
+  (simpsons-rule-approximate function lower upper steps))
+
+(define (evaluate-simpsons-delta lower upper steps)
+  (/ (- upper lower) steps))
+
+(define (simpsons-rule-approximate function lower upper steps)
+  (when (not (positive? steps)) (raise-argument-error 'simpsons-rule-approximate "positive?" steps))
+  (* (/ (evaluate-simpsons-delta lower upper steps) 3)
+     (simpsons-rule-sum function lower upper (evaluate-simpsons-delta lower upper steps))))
+
+(define (simpsons-rule-sum function lower upper delta)
+  (apply + (list (function lower)
+                 (* 4 (for/sum ([x (in-range (+ lower delta) upper (* 2 delta))]) (function x)))
+                 (* 2 (for/sum ([x (in-range (+ lower delta delta) (- upper delta) (* 2 delta))]) (function x)))
+                 (function upper))))
+
+(check-expect(simpsons-rule-approximate (λ (x) x) 0 4 10) 8)
+(check-expect(simpsons-rule-approximate (λ (x) (expt x 2)) 0 6 10) 72)
+(check-expect(simpsons-rule-approximate (λ (x) (expt x 3)) 0 10 10) 2500)
+
 (test)
