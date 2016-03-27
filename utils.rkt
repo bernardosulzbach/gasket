@@ -77,49 +77,6 @@
 (check-expect (divides 3 3) #t)
 (check-expect (divides 3 4) #f)
 
-;; A point is a member of Point which is the set of the points in the Euclidean Space that have three
-;; Numbers x, y and z.
-;;
-;; (make-point x y z) makes a point with the three provided coordinates.
-(struct point (x y z))
-
-(check-expect (point-x (point 1 0 0)) 1)
-(check-expect (point-y (point 1 0 0)) 0)
-(check-expect (point-z (point 1 0 0)) 0)
-(check-expect (point-x (point 1 2 0)) 1)
-(check-expect (point-y (point 1 2 0)) 2)
-(check-expect (point-z (point 1 2 0)) 0)
-(check-expect (point-x (point 1 2 3)) 1)
-(check-expect (point-y (point 1 2 3)) 2)
-(check-expect (point-z (point 1 2 3)) 3)
-
-;; A circle is a structure made up of a Point for its center and a Number that represents its radius.
-(struct circle (point radius))
-
-;; distance : Point2D Point2D -> Number
-;; Evaluates the distance between two points.
-(define (distance point-a point-b)
-  ;; Takes the square root of the sum of the square of the differences.
-  (sqrt (+
-         (sqr (- (point-x point-a) (point-x point-b)))
-         (sqr (- (point-y point-a) (point-y point-b)))
-         (sqr (- (point-z point-a) (point-z point-b))))))
-
-;; within-circle : Point Number Point -> Boolean
-;; Evaluates whether or not a a point is in a circle. The first Point represents the center of the circle, the middle number indicates the circle radius and the
-;; The third number is the circle radius. Finally, the last two numbers represent the X and Y coordinates of point you are testing.
-(define (within-circle center radius point)
-  (<= (distance center point) radius))
-
-(check-expect (within-circle (point 0 0 0) 2 (point 0 0 0)) #t)
-(check-expect (within-circle (point 0 0 0) 2 (point 1 1 0)) #t)
-(check-expect (within-circle (point 0 0 0) 2 (point 2 2 0)) #f)
-(check-expect (within-circle (point 0 0 0) 2 (point -1 -1 0)) #t)
-
-(check-expect (within-circle (point 2 2 0) 1 (point 2 2 0)) #t)
-(check-expect (within-circle (point 2 2 0) 1 (point 2 3 0)) #t)
-(check-expect (within-circle (point 2 2 0) 1 (point 3 3 0)) #f)
-
 ;; wall-time-apply : Function List -> Integer
 ;; Returns the number of milliseconds the function takes to finish with the provided list of arguments.
 (define (wall-time-apply procedure arguments)
