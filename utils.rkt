@@ -1,8 +1,6 @@
-;; A collection of small utilities for Racket written by Bernardo Sulzbach.
+;; Generic utilities for Racket.
 ;;
-;; Email mafagafogigante@gmail.com if you have any doubts or suggestions.
-;;
-;; Made public under the BSD 2-Clause license.
+;; Written by Bernardo Sulzbach and licensed under BSD 2-Clause license.
 
 #lang racket
 
