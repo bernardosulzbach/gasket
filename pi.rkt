@@ -32,7 +32,11 @@
 ;;  1             if n = 0
 ;;  n * (n - 1)!  otherwise
 (define (! n)
-  (if (= 0 n) 1 (* n (! (sub1 n)))))
+  (factorial-internal n 1))
+
+; Tail-recursion for the factorial.
+(define (factorial-internal n current)
+  (if (zero? n) current (factorial-internal (sub1 n) (* n current))))
 
 (check-expect (! 0) 1)
 (check-expect (! 1) 1)
