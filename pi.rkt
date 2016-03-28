@@ -51,7 +51,10 @@
 ;;  1              if n = 0 or n = 1
 ;;  n * (n - 2)!!  otherwise
 (define (!! n)
-  (if (or (= 0 n) (= 1 n)) 1 (* n (!! (- n 2)))))
+  (double-factorial-internal n 1))
+
+(define (double-factorial-internal n current)
+  (if (or (= 0 n) (= 1 n)) current (double-factorial-internal (- n 2) (* n current))))
 
 (check-expect (!! 0) 1)
 (check-expect (!! 1) 1)
