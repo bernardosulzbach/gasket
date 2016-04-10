@@ -11,7 +11,7 @@ Yes, it even has some features!
 + Tail-recursive factorial
 + Tail-recursive [double factorial](https://en.wikipedia.org/wiki/Double_factorial)
 + Binary search
-+ Better pi approximation
++ Better π approximation
 
 ## Contributors
 
