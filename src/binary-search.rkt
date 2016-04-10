@@ -19,22 +19,22 @@
          (binary-search (node-a node) key less-than?)]
         [else node])))
 
-(define tree-1 (node 50 "Weber"
-                     (node 15 "Ada"
-                           (node 10 "Adam" null null)
-                           (node 20 "Bernardo" null null))
-                     (node 55 "Lazarus" null null)))
+(define leaf-adam (node 10 "Adam" null null))
+(define leaf-cohr (node 20 "Cohr" null null))
+(define leaf-elmo (node 55 "Elmo" null null))
+(define node-bach (node 15 "Bach" leaf-adam leaf-cohr))
+(define root-dunn (node 50 "Dunn" node-bach leaf-elmo))
 
 (define (number<? a b)
   (< a b))
 
-(check-expect (binary-search tree-1 0 number<?) null)
-(check-expect (binary-search tree-1 25 number<?) null)
-(check-expect (binary-search tree-1 75 number<?) null)
-(check-satisfied (binary-search tree-1 50 number<?) (λ (node) (string=? (node-value node) "Weber")))
-(check-satisfied (binary-search tree-1 15 number<?) (λ (node) (string=? (node-value node) "Ada")))
-(check-satisfied (binary-search tree-1 10 number<?) (λ (node) (string=? (node-value node) "Adam")))
-(check-satisfied (binary-search tree-1 20 number<?) (λ (node) (string=? (node-value node) "Bernardo")))
-(check-satisfied (binary-search tree-1 55 number<?) (λ (node) (string=? (node-value node) "Lazarus")))
+(check-expect (binary-search root-dunn 0 number<?) null)
+(check-expect (binary-search root-dunn 25 number<?) null)
+(check-expect (binary-search root-dunn 75 number<?) null)
+(check-expect (binary-search root-dunn 50 number<?) root-dunn)
+(check-expect (binary-search root-dunn 15 number<?) node-bach)
+(check-expect (binary-search root-dunn 10 number<?) leaf-adam)
+(check-expect (binary-search root-dunn 20 number<?) leaf-cohr)
+(check-expect (binary-search root-dunn 55 number<?) leaf-elmo)
 
 (test)
