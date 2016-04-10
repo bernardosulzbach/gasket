@@ -1,6 +1,4 @@
-; Procedures used to approximate pi with high precision.
-;
-; π is defined as a constant.
+; Procedures for factorial calculation.
 
 #lang racket
 
