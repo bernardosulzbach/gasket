@@ -7,6 +7,21 @@
 (require math)
 (require test-engine/racket-tests)
 
+; Integer Integer -> Boolean
+; Evaluates whether or not a number divides another
+(define (divides? divider number)
+  (zero? (modulo number divider)))
+
+(check-expect (divides? 1 1) #t)
+(check-expect (divides? 1 2) #t)
+(check-expect (divides? 1 3) #t)
+(check-expect (divides? 2 1) #f)
+(check-expect (divides? 2 2) #t)
+(check-expect (divides? 2 3) #f)
+(check-expect (divides? 3 1) #f)
+(check-expect (divides? 3 2) #f)
+(check-expect (divides? 3 3) #t)
+
 ;; repeat : Function Value Number -> Value
 ;; Applies a function to a value the specified number of times.
 (define (repeat function value times)
