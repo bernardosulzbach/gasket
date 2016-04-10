@@ -4,7 +4,6 @@ A Racket library that solves some problems.
 
 ## Features
 
-+ Divisibility tests
 + Tail-recursive factorial
 + Tail-recursive [double factorial](https://en.wikipedia.org/wiki/Double_factorial)
 + Binary search
