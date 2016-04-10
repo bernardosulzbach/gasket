@@ -21,4 +21,4 @@ Yes, it even has some features!
 
 Additionally, it has continuous integration!
 
-[![Build Status](https://travis-ci.org/mafagafogigante/racket.svg?branch=master)](https://travis-ci.org/mafagafogigante/racket)
+[![Build Status](https://travis-ci.org/mafagafogigante/gasket.svg?branch=master)](https://travis-ci.org/mafagafogigante/gasket)
